@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{site/index.html}">
+
+<head>
+
+</head>
+
+<body>
+	<main layout:fragment="content">
+		<div class="breadcrumb">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li>/</li>
+				<li><a href="shop.html">Shop</a></li>
+				<li>/</li>
+				<li><a href="cart.html">Cart</a></li>
+				<li>/</li>
+				<li>Checkout</li>
+			</ul>
+		</div>
+		<!-- End of Breadcrumb-->
+
+		<h2>Billing Detail</h2>
+		<div class="checkout-page" style="width: 100%">
+			<div class="billing-detail" style="width: 100%">
+				<form class="checkout-form row" th:action="@{/site/cart/order}"
+					method="post" th:object="${delivery}">
+					<div class="col-sm-8">
+						<h4>Shipping Detail</h4>
+						<div class="form-inline">
+							<div class="form-group">
+								<label>Name</label> <input type="text" id="fname"
+									th:field="*{name}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<textarea style="resize: none" id="address" rows="3"
+								th:field="*{address}"></textarea>
+						</div>
+						<h4>Contact Detail</h4>
+						<div class="form-inline">
+							<div class="form-group">
+								<label>Phone</label> <input type="text" id="mobile"
+									minlength="11" maxlength="11" th:field="*{phone}">
+							</div>
+						</div>
+						<h4>Additional Information (Optional)</h4>
+						<div class="form-group">
+							<label>Order Note</label>
+							<textarea style="resize: none" rows="3" th:field="*{note}"></textarea>
+						</div>
+					</div>
+
+					<div class="order-summary col-sm-4">
+						<div class="checkout-total">
+							<h3>Order Summary</h3>
+							<ul>
+								<li>Cart Amount: <span>$ [[${cartAmount}]]</span></li>
+								<li>Delivery Charges: <span>$ [[${charges}]]</span></li>
+								<li>Less: Discount @ 10%: <span>-[[${discount}]]</span></li>
+								<hr>
+								<li>Total Amount: <span>[[${total}]]</span></li>
+								<hr>
+								<li><input type="radio" name="payment"> Cash on
+									Delivery</li>
+								<li><input type="radio" id="easypaisa" name="payment"
+									value="easypaisa"> Easypaisa Account</li>
+								<li><textarea id="easypaisaText" rows="5"
+										disabled="disable">Please deposit the payment in our easypaisa account# 030X-XXXXXXX after confirm payment kindly send us payment slip and order transaction id on above number.</textarea>
+								</li>
+								<li><input type="radio" name="payment"> Bank
+									Transferred</li>
+								<hr>
+								<li><button type="submit" th:id="orderBtn">Place Order</button></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+	<!-- Main Area -->
+	<th:block layout:fragment="scripts">
+		<script th:src="@{/js/checkout.js}"></script>
+	</th:block>
+</body>
+
+</html>

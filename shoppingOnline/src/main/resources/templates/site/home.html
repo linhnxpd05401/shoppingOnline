@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{site/index.html}">
+
+<head>
+
+</head>
+
+<body>
+	<main layout:fragment="content">
+			<div th:replace="site/fragments/slide:: slide">
+
+			</div>
+
+			<div th:replace="site/fragments/products:: products">
+
+			</div>
+
+			<div th:replace="site/fragments/collection:: collection">
+
+			</div>
+
+			<div th:replace="site/fragments/recommend:: recommend">
+
+			</div>
+			
+		</main> <!-- Main Area -->
+		 <th:block layout:fragment="scripts">
+		 <script th:src="@{/js/home.js}"></script>
+			<script th:src="@{/js/slider.js}"></script>
+			<script th:src="@{/js/add_to_cart_form_shop.js}"></script>
+		</th:block>	
+		
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{site/index.html}">
+
+<head>
+
+</head>
+<body>
+		<main layout:fragment="content">
+			<div class="breadcrumb">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li> / </li>
+					<li><a href="account.html">Account</a></li>
+					<li> / </li>
+					<li>Orders</li>
+				</ul>
+			</div> <!-- End of Breadcrumb-->
+
+			
+			<div class="account-page">
+				<div th:replace="site/fragments/profile:: profile">
+
+			</div>
+				<div class="account-detail">					
+					<h2>My Orders</h2>
+					<div class="order-detail">
+						<table>
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Order Ref#</th>
+									<th>Amount</th>
+									<th>Status</th>
+									<th>View</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="order : ${orders}">
+									<td>[[${order.orderId}]]</td>
+									<td>[[${order.orderedDate}]]</td>
+									<td>[[${order.amount}]]</td>
+									<td>[[${order.status}]]</td>
+									<td><a href="#">View</a></td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>
+				</div>				
+			</div>
+		</main> <!-- Main Area -->
+</body>
+
+</html>

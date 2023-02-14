@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+
+	<div class="row col-sm-6" th:fragment="quantity_control(qtyValue, productId)">
+		<a class="btn btn-primary minusButton" href="" style="display:flex; width: 24px; height: 24px; justify-content: center;align-items: center;" th:pid="${productId}">-</a>
+		<input
+		type="text" name="cartNumber" onkeydown="return false;" th:id="'quantity' + ${productId}"
+		th:value="${qtyValue}" style="text-align: center; width: 24px; height: 24px; margin: 0 12px;">
+		<a class="btn btn-primary plusButton" href="" style="display:flex; width: 24px; height: 24px; justify-content: center;align-items: center;" th:pid="${productId}">+</a> 
+	</div>
+
+</body>
+</html>

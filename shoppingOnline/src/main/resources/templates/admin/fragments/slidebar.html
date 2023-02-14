@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+    <div class="sidebar" th:fragment="slidebar">
+        <h3>Menu</h3>
+        <ul id="menu">
+            <li><a th:class="${homeActive}" th:href="@{/admin/home}">Home</a></li>
+            <li><a th:class="${accountActive}" th:href="@{/admin/accounts/accountManagement}">Account</a></li>
+            <li><a th:class="${categoryActive}" th:href="@{/admin/categories/categoryManagement}">Category</a></li>
+            <li><a th:class="${productActive}" th:href="@{/admin/products/productManagement}">Product</a></li>
+            <li><a class="" th:href="@{/admin/promotions/promotionManagement}">Promotion</a></li>
+            <li><a class="" href="">Users</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

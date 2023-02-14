@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Meta Tags -->
+<meta charset="UTF-8">
+<meta name="author" content="Kamran Mubarik">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Title -->
+<title>E-Commerce Online Shop</title>
+<!-- Style Sheet -->
+<link rel="stylesheet" type="text/css" href="/css/admin.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+
+<body>
+	<div class="container" id="container">
+		<div class="form-container sign-in-container">
+			<form class="loginOrRegisterForm" th:action="@{/alogin}"
+				method="post" th:object="${account}">
+				<h1 class="loginOrRegisterForm-heading">Sign in</h1>
+				<input class="form-input" type="text" placeholder="Username"
+					th:field="*{username}" />
+					<small th:if="${#fields.hasErrors('username')}">Username is invalid</small>
+					 <input class="form-input" type="password"
+					placeholder="Password" th:field="*{password}" />
+					<small th:if="${#fields.hasErrors('password')}">Password is invalid</small>
+				<div class="rememberMe">
+					<input type="checkbox" id="rememberMe" th:field="*{rememberMe}" />
+					<label for="rememberMe">Remember Me?</label>
+				</div>
+				<a class="loginOrRegisterForm-link" href="#">Forgot your
+					password?</a>
+				<button class="loginOrRegisterForm-btn">Sign In</button>
+			</form>
+		</div>
+		<div class="form-container form-container-right">
+			<span>ShoppingOnline Management</span>
+		</div>
+	</div>
+</body>
+</html>

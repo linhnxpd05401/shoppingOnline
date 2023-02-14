@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+    <div class="brand" th:fragment="header">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="/image/icons/online_shopping.png">
+                    <div class="logo-text">
+                        <p class="big-logo">Ecommerce</p>
+                        <p class="small-logo">online shop</p>
+                    </div>
+                </a>
+            </div> <!-- logo -->
+            <div class="shop-icon">
+                <div class="dropdown dropdownFirst">
+                    <img src="/image/icons/account.png">
+                    <div class="dropdown-menu">
+                        <ul th:if="${customer}">
+                            <li><a th:href="@{/site/account/myAccount}">My Account</a></li>
+                            <li class="orderInfo">
+                            <a th:href="@{/site/order/myOrder}">My Orders</a>
+                            <div th:if="${message}" class="cycle-number">1</div>
+                            </li>
+                        </ul>
+                        
+                        <ul th:unless="${customer}">
+                            <li><a th:href="@{/loginAndRegister}">Sign in</a></li>
+                            <li><a th:href="@{/loginAndRegister}">Sign up</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div th:if="${message}" class="orderNum">1</div>
+                </div>
+                <a class="dropdown">
+                    <img src="/image/icons/heart.png">
+                    <span th:if="${empty == false}" class="cycle-number">[[${favoriteNum}]]</span>
+                </a>
+                <a th:href="@{/site/cart/cartlist}" class="dropdown">
+                    <img src="/image/icons/shopping_cart.png">
+                    <span th:if="${cartList}" class="cycle-number">[[${itemQuantity}]]</span>
+                </a>
+            </div> <!-- shop icons -->
+    </div>
+</body>
+
+</html>

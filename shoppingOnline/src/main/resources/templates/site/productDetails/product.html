@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{site/index.html}">
+
+<head>
+
+</head>
+<body>
+		<main layout:fragment="content">
+			<div class="breadcrumb">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li> / </li>
+					<li><a href="">Shop</a></li>
+					<li> / </li>
+					<li><a href="">Product</a></li>
+				</ul>
+			</div> <!-- End of Breadcrumb-->
+
+			<div class="single-product">
+				<div class="images-section">
+					<div class="larg-img">
+						<img th:src="${'/img/product/' + product.image}">
+					</div>
+					<div class="small-img">
+						<a class="fancybox" rel="group" href="img/product/img2.jpg">
+							<img src="img/product/img2.jpg">
+						</a>
+						<a class="fancybox" rel="group" href="img/product/img3.jpg">
+							<img src="img/product/img3.jpg">
+						</a>
+						<a class="fancybox" rel="group" href="img/product/img4.jpg">
+							<img src="img/product/img4.jpg">
+						</a>
+						<a class="fancybox" rel="group" href="img/product/img5.jpg">
+							<img src="img/product/img5.jpg">
+						</a>
+					</div>
+				</div> <!-- End of Images Section-->
+
+				<div class="product-detail">
+					<div class="product-name">
+						<h2 th:text="${product.name}"></h2>
+					</div>
+					<div class="product-price">
+						<h3 th:text="${product.unitPrice}"></h3>
+					</div>
+					<hr>
+					<div class="product-description">
+						<p th:text="${product.description}"></p>
+					</div>
+					<hr>
+					<div class="product-cart">
+						<form id="cart-form">
+							<div class="form-group">
+								<div class="qty"
+										th:replace="/site/fragments/quantity_control :: quantity_control(1, ${product.productId})">
+										</div>
+								<a class="btn btn-primary" th:href="@{'/site/cart/addToCart/' + ${product.productId} + '/' + 1}" id="buttonAddToCart">Add to Cart</a>
+							</div>
+						</form>
+						<form id="wishlist-form">
+							<div class="form-group">
+								<a th:if="${empty == true}" th:href="@{'/site/favorite/addItemToFavorList/' + ${product.productId}}">
+								<i class="fa-regular fa-heart"></i>
+								Add to Wishlist
+								</a>
+								<a th:unless="${empty == true}" th:href="@{'/site/favorite/removeItemToFavorList/' + ${product.productId}}">
+								<i class="fa-solid fa-heart"></i>
+								Remove to Wishlist
+								</a>
+							</div>
+						</form>
+					</div>
+					<hr>
+					<div class="product-meta">
+						<p><b>Category: </b>[[${product.category.name}]] ([[${product.category.type
+								== 1 ? 'Men' : 'Women'}]])</p>
+						<p><b>Share This Product: </b> Facebook, Twitter</p>
+					</div>
+				</div> <!-- End of Product Detail-->
+			</div>
+			<hr>
+			<div class="product-long-description">
+				<h3>Product Description</h3>
+				<p th:text="${product.description}">
+				</p>
+			</div>
+			<hr>
+			<div th:replace="site/fragments/recommend:: recommend">
+
+			</div>
+			
+			<script type="text/javascript">
+				contextPath = "[[@{/}]]";
+				var productId = "[[${product.productId}]]";
+			</script>
+			
+		</main> <!-- Main Area -->
+		<th:block layout:fragment="scripts">
+			<script th:src="@{/js/quantity_control.js}"></script>
+			<script th:src="@{/js/add_to_cart.js}"></script>
+			<script th:src="@{/js/addWishList.js}"></script>
+		</th:block>
+</body>
+
+</html>

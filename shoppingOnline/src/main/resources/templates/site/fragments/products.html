@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+    <div class="new-product-section" th:fragment="products">
+        <div class="product-section-heading">
+            <h2>Tranding Products <img src="/image/icons/increase.png"></h2>
+            <h3>Most selling product for the month</h3>
+        </div>
+        <div class="product-content">
+            <div class="product" th:each="product : ${products}">
+                <a th:href="@{'/site/product/productDetail/' + ${product.productId}}">
+                    <img th:src="${product.image != null ? '/img/product/' + product.image : '/image/products/img1.jpg'}">
+                </a>
+                <div class="product-detail">
+                    <h3>[[${product.category.name}]] ([[${product.category.type
+								== 1 ? 'Men' : 'Women'}]])</h3>
+                    <h2 th:text="${product.name}"></h2>
+                    <a id="addToCart" th:href="@{'/site/cart/addToCart/' + ${product.productId}} + '/' + 1">Add to Cart</a>
+                    <p>$[[${product.unitPrice}]]</p>
+                </div>						
+            </div>
+        </div>
+        <div class="pagination-wrap">
+					<div>Total products: [[${totalItems}]]</div>
+					<div class="pagination" th:if="${totalPages > 1}">
+						<div class="pagination-list">
+							<div class="pagination-item">
+								<a th:if="${currentPage > 1}"
+									th:href="@{'/site/page/' + 1}"><i
+									class="fa-solid fa-backward-fast"></i></a> <a class="disabled"
+									th:unless="${currentPage > 1}"><i
+									class="fa-solid fa-backward-fast"></i></a>
+							</div>
+							<div class="pagination-item">
+								<a th:if="${currentPage > 1}"
+									th:href="@{'/site/page/' + ${currentPage - 1}}"><i
+									class="fa-solid fa-backward-step"></i></a> <a class="disabled"
+									th:unless="${currentPage > 1}"><i
+									class="fa-solid fa-backward-step"></i></a>
+							</div>
+							<span class="pagination-item"
+								th:each="i : ${#numbers.sequence(1, totalPages)}"> <a
+								th:if="${currentPage != i}"
+								th:href="@{'/site/page/' + ${i}}">[[${i}]]</a> <a
+								class="active" th:unless="${currentPage != i}">[[${i}]]</a>
+							</span>
+							<div class="pagination-item">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/site/page/' + ${currentPage + 1}}"><i
+									class="fa-solid fa-forward-step"></i></i></a> <a class="disabled"
+									th:unless="${currentPage < totalPages}"><i
+									class="fa-solid fa-forward-step"></i></i></a>
+							</div>
+							<div class="pagination-item">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/site/page/' + ${totalPages}}"><i
+									class="fa-sharp fa-solid fa-forward-fast"></i></i></a> <a
+									class="disabled" th:unless="${currentPage < totalPages}"><i
+									class="fa-sharp fa-solid fa-forward-fast"></i></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+    </div> <!-- New Product Section -->
+    <th:block layout:fragment="scripts">
+			<script th:src="@{/js/add_to_cart.js}"></script>
+		</th:block>	
+</body>
+
+</html>

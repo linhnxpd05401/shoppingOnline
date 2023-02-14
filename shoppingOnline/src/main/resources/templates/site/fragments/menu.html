@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+        <div class="menu-bar" th:fragment="menu">
+            <div class="menu">
+                <ul>
+                    <li><a th:href="@{/site/home/homePage}">Home</a></li>
+                    <li><a th:href="@{/site/shop/productList}">Shop</a></li>
+                    <li><a th:href="@{/site/about/info}">About</a></li>
+                    <li><a th:href="@{/site/contact/contactForm}">Contact</a></li>
+                </ul>
+            </div>
+            <div class="search-bar">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search">
+                        <img src="/image/icons/search.png">
+                    </div>
+                </form>
+            </div>
+        </div> <!-- menu -->
+</body>
+
+</html>

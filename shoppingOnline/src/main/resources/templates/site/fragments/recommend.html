@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+    <div class="new-product-section" th:fragment="recommend">
+        <div class="product-section-heading">
+            <h2>Recommend Products <img src="/image/icons/good_quality.png"></h2>
+            <h3>OUR BEST PRODUCTS RECOMMENDED FOR YOU</h3>
+        </div>
+        <div class="product-content">
+            <div class="product" th:each="favorite : ${favorites}" th:with="product = ${favorite.product}">
+                <a href="product.html">
+                    <img th:src="${product.image != null ? '/img/product/' + product.image : '/image/products/img1.jpg'}">
+                </a>
+                <div class="product-detail">
+                    <h3>[[${product.category.name}]] ([[${product.category.type
+								== 1 ? 'Men' : 'Women'}]])</h3>
+                    <h2>[[${product.name}]]</h2>
+                    <a th:href="@{'/site/cart/addToCart/' + ${product.productId} + '/' + 1}">Add to Cart</a>
+                    <p>$[[${product.unitPrice}]]</p>
+                </div>						
+            </div>
+        </div>
+    </div> <!-- Recommend Product Section -->
+</body>
+
+</html>

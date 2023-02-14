@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{site/index.html}">
+
+<head>
+
+</head>
+
+<body>
+	<main layout:fragment="content">
+		<div class="breadcrumb">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li>/</li>
+				<li><a href="shop.html">Shop</a></li>
+				<li>/</li>
+				<li>Cart</li>
+			</ul>
+		</div>
+		<!-- End of Breadcrumb-->
+
+		<h2>Shopping Cart</h2>
+		<div class="cart-page">
+			<div class="cart-items">
+				<div th:if="${count > 0}">
+					<div>
+						<h3>Cart Items</h3>
+					</div>
+					<div class="card mb-3" th:each="cartItem, status : ${cartItems}"
+						th:unless="${count == 0}">
+						<div class="row no-gutters" th:with = "product = ${cartItem.product}" th:id="'row' + ${status.count}">
+							<div class="col-md-4">
+								<img style="width: 100%; height: 100%"
+									th:src="${product.image != null ? '/img/product/' + cartItem.product.image : '/image/products/img1.jpg'}">
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title"
+										style="display: flex; justify-content: space-between;">
+										<a
+											th:href="@{'/site/product/productDetail/' + ${product.productId}}"
+											class="item-link" style="color: black; font-size: 18px">[[${product.name}]]</a>
+										<a class="link-remove" th:href="@{'/site/cart/removeProduct/' + ${product.productId}}" th:rowNumber="${status.count}"><i class="fa-solid fa-trash-can"
+											style="color: red; font-size: 16px"></i></a>
+									</h5>
+									<p class="card-text">[[${product.description}]]</p>
+									<div class="qty"
+										th:replace="/site/fragments/quantity_control :: quantity_control(${cartItem.quantity}, ${cartItem.product.productId})">
+
+									</div>
+									<div style="display: flex; justify-content: space-between;">
+										<h5 style="margin: 12px 0">Price: $
+											[[${product.unitPrice}]]</h5>
+										<div class="h5" style="display: flex; align-items: center;">= $<h5 class="subTotal" th:id="'subTotal' + ${product.productId}" style="margin: 12px 0">[[${cartItem.subTotal}]]</h5></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div th:if="${count == 0}">
+					<h3>You have not chosen any products yet.</h3>
+				</div>
+			</div>
+			<div class="cart-summary">
+				<div class="checkout-total">
+					<h3>Cart Summary</h3>
+					<ul>
+						<li>Number of items x [[${count}]]</li>
+						<hr>
+						<li>Cart Total <span style="float: right;" id="totalAmount"></span></li>
+						<li><a href="/site/cart/checkout" id="checkoutBtn">Go to Checkout</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- Main Area -->
+		<th:block layout:fragment="scripts">
+			<script th:src="@{/js/shopping_cart.js}"></script>
+		</th:block>
+</body>
+
+</html>

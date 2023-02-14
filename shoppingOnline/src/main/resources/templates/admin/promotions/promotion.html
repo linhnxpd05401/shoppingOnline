@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/index.html}">
+
+<head>
+
+</head>
+
+<body>
+	<div class="content" layout:fragment="content">
+		<h3>Promotions</h3>
+
+		<div class="content-data">
+			<div class="content-form">
+				<form th:action="@{/admin/promotions/saveOrUpdate}" method="post"
+					enctype="multipart/form-data" th:object="${promotion}">
+					<h4>Add Promotion</h4>
+					<div th:switch="${message}">
+						<div th:case="'Success'" class="alert alert-success">
+							<strong>Success!</strong> Operation performed successfully.
+						</div>
+						<div th:case="'Failed'" class="alert alert-danger">
+							<strong>Failure!</strong> Operation failed. Please try again
+						</div>
+					</div>
+					<div class="form-inline">
+						<div class="form-group">
+							<label for="image" class="img-container"> <img
+								class="img-display"
+								th:src="${promotion.image != null ? '/img/product/' + promotion.image : '/image/products/img1.jpg'}">
+								<span class="upload-btn">Choose File</span> <input type="file"
+								id="image" onchange="chooseFile(this)" name="imageFile" hidden>
+							</label>
+						</div>
+					</div>
+					<div class="form-inline">
+						<div class="form-group">
+							<label>Title</label> <input type="hidden"
+								th:field="*{promotionId}"> <input type="text"
+								th:field="*{title}">
+						</div>
+						<div class="form-group">
+							<label>Content</label> <input type="text" th:field="*{content}">
+						</div>
+					</div>
+
+					<div class="form-inline">
+						<div class="form-group">
+							<label>Category</label> <select th:field="*{categoryId}">
+								<option th:each="category : ${categories}"
+									th:value="${category.categoryId}"
+									th:selected="${category.categoryId == promotion.categoryId}">[[${category.name}]]
+									([[${category.type == 1 ? 'Men' : 'Women'}]])</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-group">
+							<a class="category-btn"
+								th:href="@{/admin/promotions/promotionManagement}">Reset</a>
+							<button class="category-btn">Add</button>
+						</div>
+					</div>
+				</form>
+				<div class="modal fade" id="deleteModal" data-backdrop="static"
+					data-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">Confirm
+									delete</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">Are you sure you want to delete
+								this record?</div>
+							<div class="modal-footer">
+								<a href="" class="btn btn-primary" id="delRef">Yes, Delete</a>
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-detail">
+				<h4>All Products</h4>
+				<form class="form-inline my-2 my-lg-0" th:action="@{/admin/promotions/search} ">
+					<input class="form-control mr-sm-2" type="search"
+						placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Content</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="promotion : ${promotions}">
+							<td th:text="${promotion.title}"></td>
+							<td th:text="${promotion.content}"></td>
+							<td><a id="edit"
+								th:href="@{'/admin/promotions/edit/' + ${promotion.promotionId}}">Edit</a>
+							</td>
+							<td><a id="deleteBtn"
+								th:href="@{'/admin/promotions/delete/' + ${promotion.promotionId}}">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagination-wrap">
+					<div>Total products: [[${totalItems}]]</div>
+					<div class="pagination" th:if="${totalPages > 1}">
+						<div class="pagination-list">
+							<div class="pagination-item">
+								<a th:if="${currentPage > 1}"
+									th:href="@{'/admin/promotions/page/' + 1}"><i
+									class="fa-solid fa-backward-fast"></i></a> <a class="disabled"
+									th:unless="${currentPage > 1}"><i
+									class="fa-solid fa-backward-fast"></i></a>
+							</div>
+							<div class="pagination-item">
+								<a th:if="${currentPage > 1}"
+									th:href="@{'/admin/promotions/page/' + ${currentPage - 1}}"><i
+									class="fa-solid fa-backward-step"></i></a> <a class="disabled"
+									th:unless="${currentPage > 1}"><i
+									class="fa-solid fa-backward-step"></i></a>
+							</div>
+							<span class="pagination-item"
+								th:each="i : ${#numbers.sequence(1, totalPages)}"> <a
+								th:if="${currentPage != i}"
+								th:href="@{'/admin/promotions/page/' + ${i}}">[[${i}]]</a> <a
+								class="active" th:unless="${currentPage != i}">[[${i}]]</a>
+							</span>
+							<div class="pagination-item">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/admin/promotions/page/' + ${currentPage + 1}}"><i
+									class="fa-solid fa-forward-step"></i></i></a> <a class="disabled"
+									th:unless="${currentPage < totalPages}"><i
+									class="fa-solid fa-forward-step"></i></i></a>
+							</div>
+							<div class="pagination-item">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/admin/promotions/page/' + ${totalPages}}"><i
+									class="fa-sharp fa-solid fa-forward-fast"></i></i></a> <a
+									class="disabled" th:unless="${currentPage < totalPages}"><i
+									class="fa-sharp fa-solid fa-forward-fast"></i></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="script">
+		<script th:src="@{/js/product.js}"></script>
+	</th:block>
+</body>
+
+</html>

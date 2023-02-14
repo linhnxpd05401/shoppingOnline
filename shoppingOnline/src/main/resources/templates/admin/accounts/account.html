@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/index.html}">
+
+<head>
+
+</head>
+
+<body>
+	<div class="content" layout:fragment="content">
+		<h3>Account</h3>
+		<div class="content-data">
+			<div class="content-form">
+				<form th:action="@{/admin/accounts/saveOrUpdate}" method="post"
+					th:object="${account}">
+					<h4>Add New Account</h4>
+					<div th:switch="${message}">
+						<div th:case="'Success'" class="alert alert-success">
+							<strong>Success!</strong> Operation performed successfully.
+						</div>
+						<div th:case="'Failed'" class="alert alert-danger">
+							<strong>Failure!</strong> Operation failed. Please try again
+						</div>
+					</div>
+					<div class="form-inline">
+						<div class="form-group">
+							<label>Username</label> <input type="text" th:field="*{username}"
+								name="username">
+						</div>
+						<div class="form-group">
+							<label>Password</label> <input type="password"
+								th:field="*{password}">
+						</div>
+					</div>
+					<div class="form-group">
+						<button class="category-btn">Reset</button>
+						<button class="category-btn" id="saveBtn">Save</button>
+					</div>
+				</form>
+				<div class="modal fade" id="deleteModal" data-backdrop="static"
+					data-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">Confirm
+									delete</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">Are you sure you want to delete
+								this record?</div>
+							<div class="modal-footer">
+								<a href="" class="btn btn-primary" id="delRef">Yes, Delete</a>
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-detail">
+				<h4>All Account Detail</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>Username</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="account : ${accounts}">
+							<td th:text="${account.username}"></td>
+							<td><a id="editBtn"
+								th:href="@{'/admin/accounts/edit/' + ${account.username}}">Edit</a>
+							</td>
+							<td><a id="deleteBtn"
+								th:href="@{'/admin/accounts/delete/' + ${account.username}}">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="script">
+			<script th:src="@{/js/account.js}"></script>
+		</th:block>
+</body>
+	
+</html>

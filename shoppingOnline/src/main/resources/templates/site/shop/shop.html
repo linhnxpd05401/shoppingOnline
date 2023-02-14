@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{site/index.html}">
+
+<head>
+
+</head>
+
+<body>
+	<main layout:fragment="content">
+		<div class="breadcrumb">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li>/</li>
+				<li>Shop</li>
+			</ul>
+		</div>
+		<!-- End of Breadcrumb-->
+
+		<div class="new-product-section shop">
+			<div class="sidebar">
+				<div class="sidebar-widget">
+					<h3>Category</h3>
+					<ul>
+						<li><a href="">Men's Clothes</a></li>
+						<li><a href="">Men's Shoes</a></li>
+						<li><a href="">Men's Watches</a></li>
+						<li><a href="">Women's Handbags</a></li>
+						<li><a href="">Women's Glasses</a></li>
+
+					</ul>
+				</div>
+				<div class="sidebar-widget">
+					<h3>Range Filter</h3>
+					<p>
+						<label for="amount"></label> <input type="text" id="amount"
+							readonly style="border: 0; color: #F0E68C; margin-bottom: 5px;">
+					</p>
+					<div id="slider-range"></div>
+				</div>
+			</div>
+			<div class="product-content">
+				<div class="product" th:each="product : ${products}">
+					<a href="product.html"> <img
+						th:src="${product.image != null ? '/img/product/' + product.image : '/image/products/img1.jpg'}">
+					</a>
+					<div class="product-detail">
+						<h3>[[${product.category.name}]] ([[${product.category.type
+							== 1 ? 'Men' : 'Women'}]])</h3>
+						<h2 th:text="${product.name}"></h2>
+						<a th:href="@{'/site/cart/addToCart/' + ${product.productId} + '/' + 1}">Add to Cart</a>
+						<p>$[[${product.unitPrice}]]</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- New Product Section -->
+		<div class="load-more">
+			<a th:if="${currentPage < totalPages}"
+				th:href="@{'/site/more/' + ${currentPage + 1}}">Load More</a>
+		</div>
+	</main>
+	<!-- Main Area -->
+	<th:block layout:fragment="scripts">
+		<script th:src="@{/js/shop.js}"></script>
+	</th:block>
+</body>
+
+</html>

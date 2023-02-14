@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/index.html}">
+
+<head>
+
+</head>
+
+<body>
+	<div class="content" layout:fragment="content">
+		<h3>Category</h3>
+		<div class="content-data">
+			<div class="content-form">
+				<form th:action="@{/admin/categories/saveOrUpdate}" method="post"
+					th:object="${category}">
+					<h4>Add Category</h4>
+					<div th:switch="${message}">
+						<div th:case="'Success'" class="alert alert-success">
+							<strong>Success!</strong> Operation performed successfully.
+						</div>
+						<div th:case="'Failed'" class="alert alert-danger">
+							<strong>Failure!</strong> Operation failed. Please try again
+						</div>
+					</div>
+					<input type="hidden" th:field="*{categoryId}" id="categoryId"
+						readonly>
+					<div class="form-inline">
+						<div class="form-group">
+							<label>Category Name</label> <input type="text"
+								th:field="*{name}" id="categoryName">
+						</div>
+						<div class="form-group">
+							<label>Category Type</label> <select th:field="*{type}"
+								id="categoryType">
+								<option value="1">Men</option>
+								<option value="2">Women</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<button class="category-btn">Reset</button>
+						<button class="category-btn" id="saveBtn">Save</button>
+					</div>
+				</form>
+
+				<div class="modal fade" id="deleteModal" data-backdrop="static"
+					data-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">Confirm
+									delete</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">Are you sure you want to delete
+								this record?</div>
+							<div class="modal-footer">
+								<a href="" class="btn btn-primary" id="delRef">Yes, Delete</a>
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-detail">
+				<h4>All Categories</h4>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Category</th>
+							<th>Type</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="category : ${categories}">
+							<td th:text="${category.name}"></td>
+							<td th:text="${category.type == 1 ? 'Men' : 'Women'}"></td>
+							<td><a id="editBtn"
+								th:href="@{'/admin/categories/edit/' + ${category.categoryId}}">Edit</a>
+							</td>
+							<td><a id="deleteBtn"
+								th:href="@{'/admin/categories/delete/' + ${category.categoryId}}">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagination-wrap">
+					<div>Total categories: [[${totalItems}]]</div>
+					<div class="pagination" th:if="${totalPages > 1}">
+						<div class="pagination-list">
+							<div class="pagination-item">
+								<a th:if="${currentPage > 1}"
+									th:href="@{'/admin/categories/page/' + 1}"><i
+									class="fa-solid fa-backward-fast"></i></a> <a class="disabled"
+									th:unless="${currentPage > 1}"><i
+									class="fa-solid fa-backward-fast"></i></a>
+							</div>
+							<div class="pagination-item">
+								<a th:if="${currentPage > 1}"
+									th:href="@{'/admin/categories/page/' + ${currentPage - 1}}"><i
+									class="fa-solid fa-backward-step"></i></a> <a class="disabled"
+									th:unless="${currentPage > 1}"><i
+									class="fa-solid fa-backward-step"></i></a>
+							</div>
+							<span class="pagination-item"
+								th:each="i : ${#numbers.sequence(1, totalPages)}"> <a
+								th:if="${currentPage != i}"
+								th:href="@{'/admin/categories/page/' + ${i}}">[[${i}]]</a> <a
+								class="active" th:unless="${currentPage != i}">[[${i}]]</a>
+							</span>
+							<div class="pagination-item">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/admin/categories/page/' + ${currentPage + 1}}"><i
+									class="fa-solid fa-forward-step"></i></i></a> <a class="disabled"
+									th:unless="${currentPage < totalPages}"><i
+									class="fa-solid fa-forward-step"></i></i></a>
+							</div>
+							<div class="pagination-item">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/admin/categories/page/' + ${totalPages}}"><i
+									class="fa-sharp fa-solid fa-forward-fast"></i></i></a> <a
+									class="disabled" th:unless="${currentPage < totalPages}"><i
+									class="fa-sharp fa-solid fa-forward-fast"></i></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<th:block layout:fragment="script">
+			<script th:src="@{/js/category.js}"></script>
+		</th:block>
+</body>
+
+</html>
