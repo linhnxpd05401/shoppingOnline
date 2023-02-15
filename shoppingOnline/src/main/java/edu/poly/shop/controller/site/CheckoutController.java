@@ -81,6 +81,7 @@ public class CheckoutController {
 		Integer cid = Integer.parseInt(session.getAttribute("customer").toString());
 		
 		Optional<Customer> customer = userService.findById(cid);
+		model.addAttribute("customer", cid);
 		
 		List<Favorite> fByc = favoriteService.findByCustomer(customer.get());
 		if (fByc.size() > 0) {

@@ -8,4 +8,5 @@ import edu.poly.shop.domain.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	
+	
 }

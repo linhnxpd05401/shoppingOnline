@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import edu.poly.shop.domain.Category;
 import edu.poly.shop.domain.Product;
 import edu.poly.shop.repository.ProductRepository;
 import edu.poly.shop.service.ProductService;
@@ -182,6 +183,12 @@ public class ProductServiceImpl implements ProductService {
 	public <S extends Product> List<S> saveAllAndFlush(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+
+	@Override
+	public List<Product> findByCategory(Category category) {
+		return productRepository.findByCategory(category);
 	}
 
 }

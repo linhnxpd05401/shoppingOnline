@@ -52,6 +52,8 @@ public class CartController {
 			model.addAttribute("count", cartItemsService.countByCustomer(customer.get()));
 		}
 		
+		model.addAttribute("customer", customerId);
+		
 		if(subtotal.isPresent()) {
 			model.addAttribute("subTotal", subtotal);
 		}

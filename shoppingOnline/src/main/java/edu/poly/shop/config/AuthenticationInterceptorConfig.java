@@ -19,11 +19,9 @@ public class AuthenticationInterceptorConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(adminAuthenticationInterceptor).addPathPatterns("/admin/**");
-		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/addToCart/**");
 		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/cart/**");
-		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/myAccount");
-		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/myOrder");
-		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/updateMyAccount");
+		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/account/**");
+		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/order/**");
 		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/logout");
 		registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/site/favorite/**");
 	}

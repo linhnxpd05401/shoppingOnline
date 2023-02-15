@@ -22,20 +22,6 @@
 					<div class="larg-img">
 						<img th:src="${'/img/product/' + product.image}">
 					</div>
-					<div class="small-img">
-						<a class="fancybox" rel="group" href="img/product/img2.jpg">
-							<img src="img/product/img2.jpg">
-						</a>
-						<a class="fancybox" rel="group" href="img/product/img3.jpg">
-							<img src="img/product/img3.jpg">
-						</a>
-						<a class="fancybox" rel="group" href="img/product/img4.jpg">
-							<img src="img/product/img4.jpg">
-						</a>
-						<a class="fancybox" rel="group" href="img/product/img5.jpg">
-							<img src="img/product/img5.jpg">
-						</a>
-					</div>
 				</div> <!-- End of Images Section-->
 
 				<div class="product-detail">
@@ -61,11 +47,11 @@
 						</form>
 						<form id="wishlist-form">
 							<div class="form-group">
-								<a th:if="${empty == true}" th:href="@{'/site/favorite/addItemToFavorList/' + ${product.productId}}">
+								<a class="addToWishLishBtn" th:if="${empty == true}" th:href="@{'/site/favorite/addItemToFavorList/' + ${product.productId}}">
 								<i class="fa-regular fa-heart"></i>
 								Add to Wishlist
 								</a>
-								<a th:unless="${empty == true}" th:href="@{'/site/favorite/removeItemToFavorList/' + ${product.productId}}">
+								<a class="addToWishLishBtn" th:unless="${empty == true}" th:href="@{'/site/favorite/removeItemToFavorList/' + ${product.productId}}">
 								<i class="fa-solid fa-heart"></i>
 								Remove to Wishlist
 								</a>
@@ -87,9 +73,6 @@
 				</p>
 			</div>
 			<hr>
-			<div th:replace="site/fragments/recommend:: recommend">
-
-			</div>
 			
 			<script type="text/javascript">
 				contextPath = "[[@{/}]]";

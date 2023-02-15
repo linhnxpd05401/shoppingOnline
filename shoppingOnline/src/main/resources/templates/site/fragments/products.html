@@ -19,7 +19,7 @@
                     <h3>[[${product.category.name}]] ([[${product.category.type
 								== 1 ? 'Men' : 'Women'}]])</h3>
                     <h2 th:text="${product.name}"></h2>
-                    <a id="addToCart" th:href="@{'/site/cart/addToCart/' + ${product.productId}} + '/' + 1">Add to Cart</a>
+                    <a class="buttonAddToCart" th:href="@{'/site/cart/addToCart/' + ${product.productId}} + '/' + 1">Add to Cart</a>
                     <p>$[[${product.unitPrice}]]</p>
                 </div>						
             </div>

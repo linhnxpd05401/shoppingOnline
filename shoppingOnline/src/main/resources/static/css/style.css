@@ -362,6 +362,24 @@ main .product-content .product .product-detail a:hover{
 	background-color: var(--khaki);
 	border: 1px solid transparent;
 }
+
+.qty-control {
+	margin-bottom: 16px;
+}
+
+.qty-control a {
+	background-color: var(--darkStaleGray);
+	outline: none;
+	border:none;
+	color: var(--khaki);
+}
+
+#buttonAddToCart {
+	background: var(--khaki);
+	color: var(--darkStaleGray);
+	outline: none;
+	border: none;
+}
 main .product-content .product p{
 	color: var(--darkStaleGray);
 	float: right;
@@ -1059,7 +1077,7 @@ main .account-page .profile ul li a span{
 main .account-page .account-detail{
 	width: 60%;
 }
-main .account-page .account-detail input[type="submit"]{
+main .account-page .account-detail button[type="submit"]{
 	background-color: var(--khaki);
 	color: var(--darkStaleGray);
 	text-transform: uppercase;
@@ -1349,6 +1367,23 @@ main .account-page .account-detail table td{
 	font-size:12px;
 	font-weight: 500;
 	border-radius: 50%;
+}
+
+.addToWishLishBtn {
+	color: var(--darkStaleGray);		
+}
+
+.addToWishLishBtn i {
+	margin-right: 10px;
+}
+
+.addToWishLishBtn .fa-solid{
+	color: red;
+}
+
+.addToWishLishBtn:hover {
+	text-decoration: none;
+	color: var(--darkStaleGray);
 }
 
 
